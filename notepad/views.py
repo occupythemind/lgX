@@ -27,7 +27,7 @@ class EntryAPIView(ModelViewSet):
             return Entry.objects.filter(topic__owner=self.request.user.current_profile, topic_id=self.kwargs.get('topic_pk', ''))
         return Entry.objects.filter(topic__owner=self.request.user.current_profile)
 
-    # (1.) vulnerable to IDOR by using POST to add entries to a nested endpoint
+    # (1.) vulnerable to IDOR by using POST to add entries to a nested endpoint.
     def perform_create(self, serializer):
         if self.kwargs.get('topic_pk', ''):
             serializer.save(topic=Topic.objects.get(pk=self.kwargs.get('topic_pk', '')))

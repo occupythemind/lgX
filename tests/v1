@@ -1,0 +1,21 @@
+ISSUE:
+	IDOR found on nested-url: /topics/{pk}/entries
+
+	A user can "create" entries on other users' topics by simplying sending a post request, replacing {pk} with the primary_key of that topic.
+
+CODE:
+	def perform_create(self, serializer):
+        if self.kwargs.get('topic_pk', ''):
+            serializer.save(topic=Topic.objects.get(pk=self.kwargs.get('topic_pk', '')))
+        else:
+            raise ValidationError('This endpoint does not appreciate POST requests, use /api/topics/{pk}/entries rather.')
+            
+OBSERVATION:
+	No authentication was carried out there, therefore, any legitimate user could just "create" an entry with just the pk of the topic he targets.
+
+-----
+FIX:
+	Authenticate before saving to the serializer.
+
+CODE:
+	

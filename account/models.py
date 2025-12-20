@@ -9,7 +9,8 @@ def validate_image_size(image):
         raise ValidationError("Image too large!")
 
 class Account(AbstractUser):
-    current_profile = models.UUIDField(null=True, blank=True, unique=True)
+    id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid4)
+    current_profile_id = models.UUIDField(null=True, blank=True, unique=True)
 
 class Profile(models.Model):
     # A user can have multiple profiles he can use seperately for

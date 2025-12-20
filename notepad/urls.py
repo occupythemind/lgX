@@ -1,12 +1,15 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
+from account.views import CustomTokenObtainPairView, CustomTokenRefreshView, LogoutView
 from .views import TopicAPIView, EntryAPIView
 
 app_name = 'notepad'
 
 urlpatterns = [
-
+    path('api/token/', CustomTokenObtainPairView.as_view()),
+    path('api/token/refresh/', CustomTokenRefreshView.as_view()),
+    path('api/logout/', LogoutView.as_view()),
 ]
 
 router = DefaultRouter()

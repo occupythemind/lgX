@@ -1,7 +1,7 @@
 # LgX
 LgX is a Learning Log app. It's a free, ready-to-use backend API designed for frontend developers. This project exposes real-world APIs so frontend learners can build, test, and showcase applications without needing to implement a backend.
 
-Below here is a little documentation of how the topic and entry works, for more, check [main_doc.md](https://github.com/occupythemind/lgX/doc/main_doc.md/)
+Below here is a little documentation of how the topic and entry works, for more, check [doc.md](https://github.com/occupythemind/lgX/doc/doc.md/)
 
 # 📘 Topics & Entries (Core Data Model)
 
@@ -279,4 +279,4 @@ DELETE /api/entries/<entry_id>/
 > **Entries = files inside folders**
 ---
 
-To know how authentication works, check [here](https://github.com/occupythemind/lgX/blob/master/doc/main_doc.md#authentication)
+To know how authentication works, check [here](https://github.com/occupythemind/lgX/blob/master/doc/doc.md#authentication)

@@ -277,3 +277,6 @@ DELETE /api/entries/<entry_id>/
 
 > **Topics = folders**
 > **Entries = files inside folders**
+---
+
+To know how authentication works, check [here](https://github.com/occupythemind/lgX/blob/master/doc/main_doc.md#authentication)

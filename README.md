@@ -40,12 +40,11 @@ You’ll use this `id` when:
 
 Both Topics and Entries support a `status` field:
 
-| Value  | Meaning              |
-|  | -- |
-| ACTIVE | Visible / in use     |
-| DRAFT  | Saved but not active |
-| TRASH  | Soft-deleted         |
-
+| Value  | Meaning                  |
+|--------|--------------------------|
+| ACTIVE | Visible / in use         |
+| DRAFT  | Saved but not active     |
+| TRASH  | Soft-deleted (temporary) |
 
 
 # 📂 TOPICS
@@ -138,7 +137,7 @@ PATCH /api/topics/<topic_id>/
 DELETE /api/topics/<topic_id>/
 ```
 
-This performs a soft delete if that topic status is not set to TRASH. If it was set to trash, then a permanent delete would take place.
+This performs a soft/temporary delete if that topic status is not set to TRASH. If it was set to trash, then a permanent delete would take place.
 
 
 
@@ -259,6 +258,8 @@ Example:
 ```http
 DELETE /api/entries/<entry_id>/
 ```
+The same applies for entry as well. It performs a soft/temporary delete if that entry is not set to TRASH. If it was set to trash, then a permanent delete would take place.
+
 
 
 

@@ -98,7 +98,7 @@ class CustomTokenRefreshView(TokenRefreshView):
                 httponly=True,
                 secure=not settings.DEBUG,
                 samesite='Lax',
-                max_age=remember_me,
+                max_age=refresh_max_age,
                 path='/'
             )
 

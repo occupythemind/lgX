@@ -1,1 +1,20 @@
 Frontend UI: The purples(#7f169b) & blacks (#101010) & whites
+
+
+To use the API token, you would need to have to be authenticated. Authentication comes down to 2 phases:
+1. Registered App. AUthentication
+2. App Users' Authentication
+
+ Registered App. AUthentication
+    This enables us tell your application apart from another and also tell your application users apart from that of others. This requires you to be registred with us and get an app id (to tag you with your users' records) and token (to authenticate you. Incase you want to manage your users)
+
+ App Users' Authentication
+    This is your app users authentication, to tell users apart from another. This requires just their email, username and password, but only email (or username) and password is required for login.
+
+### app_admin functionalities
+
+#### managing your app users
+#### notification (email, popups)
+
+
+Categorizing topics

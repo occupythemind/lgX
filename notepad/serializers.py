@@ -17,5 +17,5 @@ class TopicSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'owner']
 
     def create(self, validated_data):
-        validated_data['owner'] = Profile.objects.get(id=self.context['request'].user.current_profile)
+        validated_data['owner'] = Profile.objects.get(id=self.context['request'].user.current_profile_id)
         return super().create(validated_data)

@@ -1,0 +1,16 @@
+The API:
+	filter_param = [created, created__gte, created__lte, title__icontains, status]
+	search_param = [search] --> title
+	ordering_param = [ordering] --> created, -created (default), title, -title, status, -status [where - is descending order (from biggest to smallest)]
+The API query example:
+	/api/topics/?title__icontains=text
+	/api/topics/?created__gte=2025-12-24
+	/api/topics/?created__gte=2025-12-24&status=TRASH
+	
+	/api/topics/?search=text (only for title)
+	
+	/api/topics/?ordering=-title 
+	
+	/api/topics/?search=ello&status=ACTIVE&ordering=-title
+
+status is choices, ie. It accept 3 values, ACTIVE (default, if none is passed), DRAFT, TRASH (for temporary deleted objects)

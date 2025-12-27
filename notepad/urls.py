@@ -7,9 +7,9 @@ from .views import TopicAPIView, EntryAPIView
 app_name = 'notepad'
 
 urlpatterns = [
-    path('api/token/', CustomTokenObtainPairView.as_view()),
-    path('api/token/refresh/', CustomTokenRefreshView.as_view()),
-    path('api/logout/', LogoutView.as_view()),
+    path('api/token/', CustomTokenObtainPairView.as_view()), # get token
+    path('api/token/refresh/', CustomTokenRefreshView.as_view()), # refresh token
+    path('api/logout/', LogoutView.as_view()), # logout (ie. delete token)
 ]
 
 router = DefaultRouter()

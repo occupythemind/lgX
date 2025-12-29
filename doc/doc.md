@@ -3,18 +3,26 @@
 ## AUTHENTICATION
 You would be obtaining 2 tokens from the server, namely the `Access` and `Refresh` token. The access token is meant to grant you access to your resources and enable you perform authorized actions on them and it is short lived ie. 15 minutes; while the refresh token is what you use to redeem your access token when it expires. By default, refresh tokens last a day unless you set the remember_me field at login to true, which will make it live up to 2 weeks (14 days).
 
+lgX uses the email-based login (but soon, username would be added as an optional relacement for email).
+
 ### Sign Up
+```http
+POST /auth/signup/
+```
+required fields: `email`, `password`
+
+As for properties like: first_name, last_name, they can be used on the profile, concatenated to form the name as a whole as saved afterwards.
 
 ### Login
 ```HTTP
-POST /api/token/
+POST /auth/token/
 ```
-required fields: `username`, `password`
+required fields: `email`, `password`
 optional fields: `remember_me` (Values are true or false. If set to true, will cause your refresh tokens to last 2 weeks maximum)
 
 ### Refresh Token
 ```HTTP
-POST /api/token/refresh/
+POST /auth/token/refresh/
 ```
 No required fields, as refresh token is gotten from the cookie.
 

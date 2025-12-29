@@ -1,51 +1,54 @@
 from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny
+from rest_framework.throttling import AnonRateThrottle
 from rest_framework import status
 from django.conf import settings
+from .serializers import AccountSerializer, EmailTokenObtainPairSerializer
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = EmailTokenObtainPairSerializer
+
     def post(self, request, *args, **kwargs):
-        # check if the user wants to be remembered for 2 weeks
-        remember_me = request.data.get('remember_me', False)
+        remember_me = request.data.get("remember_me", False)
 
         response = super().post(request, *args, **kwargs)
 
         if response.status_code == 200:
-            access_token = response.data.get('access')
-            refresh_token = response.data.get('refresh')
+            access_token = response.data.get("access")
+            refresh_token = response.data.get("refresh")
 
-            if remember_me:
-                refresh_max_age = 14 * 86400 # 14 days (2 weeks)
-            else:
-                refresh_max_age = 86400 # 1 day
+            refresh_max_age = 14 * 86400 if remember_me else 86400
 
-            # set access token in HTTPOnly cookie
             response.set_cookie(
-                key='access',
+                key="access",
                 value=access_token,
                 httponly=True,
-                secure=not settings.DEBUG, # True in Pro. env. and False in dev.
-                samesite='Lax',
-                # we may adjust this based on if the user chooses that his access token lasts 2wks max
-                max_age=900, # 15 mins in sec.
-                path='/'
+                secure=not settings.DEBUG,
+                samesite="Lax",
+                max_age=900,  # 15 min
+                path="/",
             )
 
-            # set refresh token in HTTPOnly cookie
             response.set_cookie(
-                key='refresh',
+                key="refresh",
                 value=refresh_token,
                 httponly=True,
                 secure=not settings.DEBUG,
-                samesite='Lax',
+                samesite="Lax",
                 max_age=refresh_max_age,
-                path='/'
+                path="/",
             )
 
-            # remove token from response body
-            response.data = {'detail': 'Successfully logged in', 'remember_me': remember_me}
+            response.data = {
+                "detail": "Successfully logged in",
+                "remember_me": remember_me,
+            }
 
         return response
 
@@ -123,3 +126,11 @@ class LogoutView(APIView):
         )
 
         return response
+    
+
+class SignUpView(CreateAPIView):
+    # This view will auto-reject GET/PUT/PATCH/DELETE requests
+    serializer_class = AccountSerializer
+    permission_classes = [AllowAny]
+    throttle_classes = [AnonRateThrottle]
+

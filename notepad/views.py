@@ -5,6 +5,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from django.conf import settings
 from .permissions import IsOwner
 from .serializers import TopicSerializer, EntrySerializer
 from .models import Topic, Entry
@@ -63,7 +64,7 @@ class EntryAPIView(ModelViewSet):
                 raise NotFound({'detail':'No Topic matches the given query.'})
             serializer.save(topic=topic)
         else:
-            raise ValidationError('This endpoint does not appreciate POST requests, use /api/topics/{pk}/entries rather.')
+            raise ValidationError(settings.MSG_ERROR_METHOD_REFER % ('POST', '/api/topics/{pk}/entries/'))
         
     def perform_destroy(self, instance):
         if instance.status == 'TRASH':

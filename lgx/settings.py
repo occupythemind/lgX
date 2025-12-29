@@ -138,6 +138,13 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ],
     'PAGE_SIZE': 10,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+    }
 }
 
 # Disable browsable API on Production env.
@@ -170,6 +177,11 @@ SIMPLE_JWT = {
 }
 
 
+# Default Authentication Backend
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -198,3 +210,8 @@ MAX_PROFILE_IMAGE_DIMENSION = 512
 # Server-side limits to prevent large requests
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024   # 5 MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+
+# Custom Error Messages
+MSG_ERROR_METHOD_REFER = 'This endpoint does not appreciate %s requests, use %s rather'
+MSG_INVALID_CRED = 'Invalid Credentials'
+MSG_ACCOUNT_DISABLED = 'User account was temporarily disabled'

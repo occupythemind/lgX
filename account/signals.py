@@ -8,8 +8,8 @@ from .models import Profile
 def user_created(sender, instance, created, **kwargs):
     # sender -- The model that sent the action, in this case Account
     if created:
-        # This runs ONLY once, when the user is created
+        # This runs ONLY once, when an account is created
         profile = Profile.objects.create(user=instance)
         profile.save()
-        instance.current_profile = profile.id
+        instance.current_profile_id = profile.id
         instance.save()

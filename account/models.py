@@ -51,7 +51,7 @@ class Profile(models.Model):
     # relating with other entities (profiles). //Soon to write a serializer & url for //
     id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid4)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profiles')
-    name = models.CharField(max_length=300)
-    bio = models.CharField(max_length=400)
-    pimg = models.ImageField(upload_to='pIMG/', validators=[validate_image_size])
+    name = models.CharField(max_length=300, null=True, blank=True)
+    bio = models.CharField(max_length=400, null=True, blank=True)
+    pimg = models.ImageField(upload_to='pIMG/', validators=[validate_image_size], null=True, blank=True)
 
